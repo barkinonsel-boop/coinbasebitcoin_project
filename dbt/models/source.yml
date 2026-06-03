@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: coinbase_bitcoin_raw
+    database: coinbase_bitcoin
+    schema: raw
+    tables:
+      - name: raw_coinbasebitcoin
+        description: "Append-only raw table containing loaded JSON files from Azure blob storage via Snowpipe."
+        columns:
+          - name: json_data
+            data_type: variant
+          - name: file_path
+            data_type: string
+          - name: ingested_at
+            data_type: timestamp_ntz

@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: dim_trading_pairs
+    description: "Dimension table containing unique currency trading pairs."
+    columns:
+      - name: trading_pair_key
+        description: "Primary key (MD5 hash) of the trading pair."
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_bitcoin_prices
+    description: "Fact table recording Bitcoin spot-price snapshots over time."
+    columns:
+      - name: price_fact_id
+        description: "Primary key of the fact table entry."
+        tests:
+          - unique
+          - not_null
+      - name: trading_pair_key
+        description: "Foreign key linking to dim_trading_pairs."
+        tests:
+          - not_null
+          - relationships:
+              arguments: # <-- Added for dbt v2.0 compatibility
+                to: ref('dim_trading_pairs')
+                field: trading_pair_key
+      - name: price_amount
+        description: "The actual asset value at the snapshot window."
+        tests:
+          - not_null
