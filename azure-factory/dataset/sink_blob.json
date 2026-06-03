@@ -1,0 +1,22 @@
+{
+	"name": "sink_blob",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blobservice",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@concat('coinbase_bitcoin', formatDateTime(utcNow(), 'yyyyMMdd_HHmmss'), '.json')",
+					"type": "Expression"
+				},
+				"container": "raw"
+			}
+		},
+		"schema": {}
+	}
+}
